@@ -1,9 +1,25 @@
 package com.gildedrose
+import kotlin.math.max
 
 class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
+            when (items[i].name) {
+                "Aged Brie" -> {
+                    items[i].quality = max(items[i].quality + 1, 50)
+                }
+                "Backstage passes to a TAFKAL80ETC concert" -> {
+                    if (items[i].sellIn < 11) items[i].quality = max(items[i].quality + 1, 50)
+                    if (items[i].sellIn < 6) items[i].quality = max(items[i].quality + 1, 50)
+                }
+                else -> {
+
+                }
+            }
+            items[i].sellIn -= 1
+        }
+        /*for (i in items.indices) {
             if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
                 if (items[i].quality > 0) {
                     if (items[i].name != "Sulfuras, Hand of Ragnaros") {
@@ -51,7 +67,7 @@ class GildedRose(var items: Array<Item>) {
                     }
                 }
             }
-        }
+        }*/
     }
 
 }
