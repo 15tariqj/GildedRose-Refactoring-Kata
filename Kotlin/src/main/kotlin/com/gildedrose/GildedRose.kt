@@ -5,27 +5,27 @@ import kotlin.math.min
 class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
-        for (i in items.indices) {
-            when (items[i].name) {
+        for (item in items) {
+            when (item.name) {
                 "Aged Brie" -> {
-                    items[i].quality = min(items[i].quality + 1, 50)
+                    item.quality = min(item.quality + 1, 50)
                 }
                 "Backstage passes to a TAFKAL80ETC concert" -> {
-                    items[i].quality = min(items[i].quality + 1, 50)
-                    if (items[i].sellIn < 11) items[i].quality = min(items[i].quality + 1, 50)
-                    if (items[i].sellIn < 6) items[i].quality = min(items[i].quality + 1, 50)
-                    if (items[i].sellIn < 0) items[i].quality = 0
+                    item.quality = min(item.quality + 1, 50)
+                    if (item.sellIn < 11) item.quality = min(item.quality + 1, 50)
+                    if (item.sellIn < 6) item.quality = min(item.quality + 1, 50)
+                    if (item.sellIn < 0) item.quality = 0
                 }
                 "Sulfuras, Hand of Ragnaros" -> {}
                 "Conjured" -> {
-                    items[i].quality = max(items[i].quality - 2, 0)
+                    item.quality = max(item.quality - 2, 0)
                 }
                 else -> {
-                    if (items[i].sellIn < 0) items[i].quality = max(items[i].quality - 2, 0)
-                    else items[i].quality = max(items[i].quality - 1, 0)
+                    if (item.sellIn < 0) item.quality = max(item.quality - 2, 0)
+                    else item.quality = max(item.quality - 1, 0)
                 }
             }
-            items[i].sellIn -= 1
+            item.sellIn -= 1
         }
 
     //**LEGACY CODE**
