@@ -16,11 +16,10 @@ internal class GildedRoseTest {
 
     @Test
     fun qualityDegradesTwiceAsFastAfterSellByDate() {
-        val items = arrayOf<Item>(Item(name = "foo", sellIn = 1, quality = 10))
+        val items = arrayOf<Item>(Item(name = "foo", sellIn = -1, quality = 10))
         val app = GildedRose(items)
         app.updateQuality()
-        app.updateQuality()
-        assertEquals(7, app.items[0].quality)
+        assertEquals(8, app.items[0].quality)
     }
 
     @Test
@@ -67,7 +66,14 @@ internal class GildedRoseTest {
         assertEquals(0, app.items[3].quality)
     }
 
-    @
+    @Test
+    fun conjuredItemsDecreaseTwiceAsFast() {
+        val items = arrayOf<Item>(Item(name = "Conjured", sellIn = 5, quality = 10))
+        val app = GildedRose(items)
+        app.updateQuality()
+        assertEquals(8, items[0].quality)
+    }
+
 
 }
 
