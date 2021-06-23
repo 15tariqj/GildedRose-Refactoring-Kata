@@ -35,7 +35,7 @@ internal class GildedRoseTest {
         val items = arrayOf<GeneralItem>(AgedBrie(name = "Aged Brie", sellIn = 2, quality = 10))
         val app = GildedRose(items)
         app.updateQualities()
-        assert(app.items[0].quality > 10)
+        assertEquals(11, app.items[0].quality)
     }
 
     @Test
@@ -43,8 +43,8 @@ internal class GildedRoseTest {
         val items = arrayOf<GeneralItem>(AgedBrie(name = "Aged Brie", sellIn = 4, quality = 50), BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 3, quality = 50))
         val app = GildedRose(items)
         app.updateQualities()
-        assert(app.items[0].quality <= 50)
-        assert(app.items[1].quality <= 50)
+        assertEquals(50, app.items[0].quality)
+        assertEquals(50, app.items[1].quality)
     }
 
     @Test
