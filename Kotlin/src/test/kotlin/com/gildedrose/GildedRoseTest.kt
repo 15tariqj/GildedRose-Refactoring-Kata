@@ -8,58 +8,58 @@ internal class GildedRoseTest {
 
     @Test
     fun foo() {
-        val items = arrayOf<Item>(Item("foo", 0, 0))
+        val items = arrayOf<GeneralItem>(GeneralItem("foo", 0, 0))
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateQualities()
         assertEquals("foo", app.items[0].name)
     }
 
     @Test
     fun qualityDegradesTwiceAsFastAfterSellByDate() {
-        val items = arrayOf<Item>(Item(name = "foo", sellIn = -1, quality = 10))
+        val items = arrayOf<GeneralItem>(GeneralItem(name = "foo", sellIn = -1, quality = 10))
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateQualities()
         assertEquals(8, app.items[0].quality)
     }
 
     @Test
     fun qualityIsNeverNegative() {
-        val items = arrayOf<Item>(Item(name = "foo", sellIn = 1, quality = 0))
+        val items = arrayOf<GeneralItem>(GeneralItem(name = "foo", sellIn = 1, quality = 0))
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateQualities()
         assertEquals(0, app.items[0].quality)
     }
 
     @Test
     fun agedBrieIncreasesInQualityWithAge() {
-        val items = arrayOf<Item>(Item(name = "Aged Brie", sellIn = 2, quality = 10))
+        val items = arrayOf<GeneralItem>(AgedBrie(name = "Aged Brie", sellIn = 2, quality = 10))
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateQualities()
         assert(app.items[0].quality > 10)
     }
 
     @Test
     fun qualityOfItemNeverMoreThanFifty() {
-        val items = arrayOf<Item>(Item(name = "Aged Brie", sellIn = 4, quality = 50), Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 3, quality = 50))
+        val items = arrayOf<GeneralItem>(AgedBrie(name = "Aged Brie", sellIn = 4, quality = 50), BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 3, quality = 50))
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateQualities()
         assert(app.items[0].quality <= 50)
         assert(app.items[1].quality <= 50)
     }
 
     @Test
     fun sulfurasNeverDecreasesQuality() {
-        val items = arrayOf<Item>(Item(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = 80))
+        val items = arrayOf<GeneralItem>(Sulfuras(name = "Sulfuras, Hand of Ragnaros", sellIn = 0, quality = 80))
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateQualities()
         assertEquals(80, app.items[0].quality)
     }
 
     @Test
     fun backstagePassesIncreaseInQualityWithAge() {
-        val items = arrayOf<Item>(Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 11, quality = 10), Item(name ="Backstage passes to a TAFKAL80ETC concert", sellIn = 9, quality = 10), Item(name ="Backstage passes to a TAFKAL80ETC concert", sellIn = 3, quality = 10), Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 10))
+        val items = arrayOf<GeneralItem>(BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 11, quality = 10), BackstagePasses(name ="Backstage passes to a TAFKAL80ETC concert", sellIn = 9, quality = 10), BackstagePasses(name ="Backstage passes to a TAFKAL80ETC concert", sellIn = 3, quality = 10), BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 10))
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateQualities()
         assertEquals(11, app.items[0].quality)
         assertEquals(12, app.items[1].quality)
         assertEquals(13, app.items[2].quality)
@@ -68,9 +68,9 @@ internal class GildedRoseTest {
 
     @Test
     fun conjuredItemsDecreaseTwiceAsFast() {
-        val items = arrayOf<Item>(Item(name = "Conjured", sellIn = 5, quality = 10))
+        val items = arrayOf<GeneralItem>(Conjured(name = "Conjured", sellIn = 5, quality = 10))
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateQualities()
         assertEquals(8, items[0].quality)
     }
 

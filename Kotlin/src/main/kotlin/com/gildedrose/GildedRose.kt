@@ -2,11 +2,12 @@ package com.gildedrose
 import kotlin.math.max
 import kotlin.math.min
 
-class GildedRose(var items: Array<Item>) {
+class GildedRose(var items: Array<GeneralItem>) {
 
-    fun updateQuality() {
+    fun updateQualities() {
         for (item in items) {
-            when (item.name) {
+            item.updateQuality()
+            /*when (item.name) {
                 "Aged Brie" -> {
                     item.quality = min(item.quality + 1, 50)
                 }
@@ -25,7 +26,7 @@ class GildedRose(var items: Array<Item>) {
                     else item.quality = max(item.quality - 1, 0)
                 }
             }
-            item.sellIn -= 1
+            item.sellIn -= 1*/
         }
 
     //**LEGACY CODE**
