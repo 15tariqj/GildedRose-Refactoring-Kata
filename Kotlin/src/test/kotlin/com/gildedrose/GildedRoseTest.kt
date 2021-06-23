@@ -15,6 +15,14 @@ internal class GildedRoseTest {
     }
 
     @Test
+    fun normalItemsDecreaseQualityBeforeSellIn() {
+        val items = arrayOf<GeneralItem>(GeneralItem(name = "foo", sellIn = 4, quality = 10))
+        val app = GildedRose(items)
+        app.updateQualities()
+        assertEquals(9, app.items[0].quality)
+    }
+
+    @Test
     fun qualityDegradesTwiceAsFastAfterSellByDate() {
         val items = arrayOf<GeneralItem>(GeneralItem(name = "foo", sellIn = -1, quality = 10))
         val app = GildedRose(items)
@@ -36,6 +44,14 @@ internal class GildedRoseTest {
         val app = GildedRose(items)
         app.updateQualities()
         assertEquals(11, app.items[0].quality)
+    }
+
+    @Test
+    fun agedBrieIncreasesTwiceAsFastAfterSellIn() {
+        val items = arrayOf<GeneralItem>(AgedBrie(name = "Aged Brie", sellIn = -1, quality = 10))
+        val app = GildedRose(items)
+        app.updateQualities()
+        assertEquals(12, app.items[0].quality)
     }
 
     @Test

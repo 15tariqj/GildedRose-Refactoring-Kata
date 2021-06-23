@@ -22,6 +22,7 @@ open class GeneralItem(name: String, sellIn: Int, quality: Int) : Item(name, sel
 class AgedBrie(name: String, sellIn: Int, quality: Int) : GeneralItem(name, sellIn, quality) {
     override fun updateQuality() {
         this.quality = min(this.quality + 1, 50)
+        if (this.sellIn < 0) this.quality = min(this.quality + 1, 50)
         this.sellIn -= 1
     }
 }
