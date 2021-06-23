@@ -84,10 +84,18 @@ internal class GildedRoseTest {
 
     @Test
     fun conjuredItemsDecreaseTwiceAsFast() {
-        val items = arrayOf<GeneralItem>(Conjured(name = "Conjured", sellIn = 5, quality = 10))
+        val items = arrayOf<GeneralItem>(Conjured(name = "Conjured Mana Cake", sellIn = 5, quality = 10))
         val app = GildedRose(items)
         app.updateQualities()
         assertEquals(8, items[0].quality)
+    }
+
+    @Test
+    fun conjuredItemsDecreaseTwiceAsFastAfterSellIn() {
+        val items = arrayOf<GeneralItem>(Conjured(name = "Conjured Mana Cake", sellIn = -1, quality = 10))
+        val app = GildedRose(items)
+        app.updateQualities()
+        assertEquals(6, items[0].quality)
     }
 
 

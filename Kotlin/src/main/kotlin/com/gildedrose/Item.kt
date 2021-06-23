@@ -46,6 +46,7 @@ class Sulfuras(name: String, sellIn: Int, quality: Int) : GeneralItem(name, sell
 class Conjured(name: String, sellIn: Int, quality: Int) : GeneralItem(name, sellIn, quality) {
     override fun updateQuality() {
         this.quality = max(this.quality - 2, 0)
+        if (this.sellIn < 0) this.quality = max(this.quality - 2, 0)
         this.sellIn -= 1
     }
 }
