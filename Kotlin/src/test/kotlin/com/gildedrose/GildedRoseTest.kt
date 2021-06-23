@@ -55,12 +55,19 @@ internal class GildedRoseTest {
     }
 
     @Test
-    fun qualityOfItemNeverMoreThanFifty() {
+    fun qualityOfAgedBrieNeverMoreThanFifty() {
         val items = arrayOf<GeneralItem>(AgedBrie(name = "Aged Brie", sellIn = 4, quality = 50), BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 3, quality = 50))
         val app = GildedRose(items)
         app.updateQualities()
         assertEquals(50, app.items[0].quality)
-        assertEquals(50, app.items[1].quality)
+    }
+
+    @Test
+    fun qualityOfBackstagePassNeverMoreThanFifty() {
+        val items = arrayOf<GeneralItem>(BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 3, quality = 50))
+        val app = GildedRose(items)
+        app.updateQualities()
+        assertEquals(50, app.items[0].quality)
     }
 
     @Test
@@ -72,14 +79,35 @@ internal class GildedRoseTest {
     }
 
     @Test
-    fun backstagePassesIncreaseInQualityWithAge() {
-        val items = arrayOf<GeneralItem>(BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 11, quality = 10), BackstagePasses(name ="Backstage passes to a TAFKAL80ETC concert", sellIn = 9, quality = 10), BackstagePasses(name ="Backstage passes to a TAFKAL80ETC concert", sellIn = 3, quality = 10), BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 10))
+    fun backstagePassesIncreaseByOneWhenMoreThanTenDaysLeft() {
+        val items = arrayOf<GeneralItem>(BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 11, quality = 10))
         val app = GildedRose(items)
         app.updateQualities()
         assertEquals(11, app.items[0].quality)
-        assertEquals(12, app.items[1].quality)
-        assertEquals(13, app.items[2].quality)
-        assertEquals(0, app.items[3].quality)
+    }
+
+    @Test
+    fun backstagePassesIncreaseByTwoWhenBetweenTenAndFiveDaysLeft() {
+        val items = arrayOf<GeneralItem>(BackstagePasses(name ="Backstage passes to a TAFKAL80ETC concert", sellIn = 10, quality = 10))
+        val app = GildedRose(items)
+        app.updateQualities()
+        assertEquals(12, app.items[0].quality)
+    }
+
+    @Test
+    fun backstagePassesIncreaseByThreeWhenFiveOrLessDaysLeft() {
+        val items = arrayOf<GeneralItem>(BackstagePasses(name ="Backstage passes to a TAFKAL80ETC concert", sellIn = 5, quality = 10))
+        val app = GildedRose(items)
+        app.updateQualities()
+        assertEquals(13, app.items[0].quality)
+    }
+
+    @Test
+    fun backstagePassesWorthNothingAfterSellIn() {
+        val items = arrayOf<GeneralItem>(BackstagePasses(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = -1, quality = 10))
+        val app = GildedRose(items)
+        app.updateQualities()
+        assertEquals(0, app.items[0].quality)
     }
 
     @Test
